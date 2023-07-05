@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../assets/App.css";
 import { getPosts } from "../api";
 import { Home } from "../pages";
-import {Loader} from "./";
+import {Loader, Navbar} from "./";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -29,6 +29,7 @@ function App() {
 
   return (
     <>
+      <Navbar />
       <Home posts={posts} />
     </>
   );
