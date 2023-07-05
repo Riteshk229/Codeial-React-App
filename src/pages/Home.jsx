@@ -1,45 +1,51 @@
-const Home = () => {
+import styles from '../assets/styles/home.module.css'
+
+const Home = ({posts}) => {
     return (
-        <div className="posts-list">
-            <div className="post-wrapper">
-                <div className="post-header">
-                    <div className="post-avatar">
+        <div className={styles.postList}>
+            {posts.map(post => 
+                <div className={styles.postWrapper} key={post._id}>
+                <div className={styles.postHeader}>
+                    <div className={styles.postAvatar}>
                         <img
                             src="https://www.shutterstock.com/image-vector/user-profile-icon-vector-avatar-600w-1773268634.jpg"
                             alt="user-pic"
                         />
+                        <div>
+                                <span className={styles.postAuthor}>{post.user.name}</span>
+                            <span className={styles.postTime}>a minute ago</span>
+                        </div>
                     </div>
-                    <span className="post-author">Ritesh</span>
-                    <span className="post-time">a minute ago</span>
                 </div>
-                <div className="post-content">Post Content</div>
+                    <div className={styles.postContent}>{post.content}</div>
 
-                <div className="post-actions">
-                    <div className="post-like">
-                        <i class="fa-regular fa-heart"></i>
+                <div className={styles.postActions}>
+                    <div className={ styles.postLike}>
+                        <i className="fa-regular fa-heart"></i>
                         <span>5</span>
                     </div>
-                    <div className="post-comments-icon">
-                        <i class="fa-regular fa-comments"></i>
+                    <div className={ styles.postCommentsIcon}>
+                        <i className="fa-regular fa-comments"></i>
                         <span>2</span>
                     </div>
                 </div>
-                <div className="post-comment-box">
+                <div className={styles.postCommentBox}>
                     <input placeholder="Write a comment...."/>
                 </div>
 
-                <div className="post-comments-list">
-                    <div className="post-comments-item">
-                        <div className="post-comment-header">
-                            <span className="post-comment-author">Akash</span>
-                            <span className="post-comment-time">a minute ago</span>
-                            <span className="post-comment-likes">22</span>
+                <div className={styles.postCommentLike}>
+                    <div className={styles.postCommentItem}>
+                        <div className={styles.postCommentHeader}>
+                            <span className={styles.postCommentAuthor}>Akash</span>
+                            <span className={styles.postCommentTime}>a minute ago</span>
+                            <span className={styles.postCommentLikes}>22</span>
                         </div>
 
-                        <div className="post-comment-content">Random</div>
+                        <div className={styles.postCommentContent}>Random</div>
                     </div>
                 </div>
             </div>
+            )};
         </div>
     )
 }
