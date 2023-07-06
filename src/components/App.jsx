@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { Route,Routes } from "react-router-dom";
 import "../assets/App.css";
 import { getPosts } from "../api";
-import { Home } from "../pages";
+import { Home, Login} from "../pages";
 import {Loader, Navbar} from "./";
 
 function App() {
@@ -28,10 +29,15 @@ function App() {
   }
 
   return (
-    <>
+    <div className="App">
       <Navbar />
-      <Home posts={posts} />
-    </>
+        <Routes>
+        <Route exact path="/" element={<Home posts={posts} />}></Route>
+        <Route exact  path="/login" element={<Login/>}></Route>
+          {/* <Route  exact path="/about" element={About}></Route> */}
+          {/* <Route exact path="/user/:user_ID" element={UserInfo}></Route> */}
+        </Routes>
+    </div>
   );
 }
 

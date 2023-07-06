@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import styles from '../assets/styles/home.module.css'
-import {Comments} from './'
+import {Comments} from '../components'
 
 const Home = ({posts}) => {
     return (
@@ -38,7 +38,7 @@ const Home = ({posts}) => {
                 <Comments comments={post.comments}/>
                     
             </div>
-            )};
+            )}
         </div>
     )
 }
