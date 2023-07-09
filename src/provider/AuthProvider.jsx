@@ -1,6 +1,8 @@
 import { createContext } from "react";
 import { useProvideAuth } from "../hooks";
 
+
+// setting the initial value of our context
 const initialState = {
     user: null,
     login: () => { },
@@ -8,14 +10,15 @@ const initialState = {
     loading: true
 }
 
+// creating and exporting context with initial value
 export const AuthContext = createContext(initialState);
 
-export const AuthProvider = ({ childern }) => {
-    const auth = useProvideAuth();
-    
-    return (
-        <AuthContext.Provider value={auth}>
-            {childern}
-        </AuthContext.Provider>
-        ); 
-    }
+
+// providing the context to those component who uses it
+export const AuthProvider = ({ children }) => {
+  const auth = useProvideAuth();
+
+    return <AuthContext.Provider value={auth}>
+            {children}
+            </AuthContext.Provider>;
+};

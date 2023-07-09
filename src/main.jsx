@@ -8,12 +8,14 @@ import { AuthProvider } from "./provider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-  <ToastProvider autoDismiss autoDismissTimeout={5000} placement="top-left">
-    <Router>
-      <AuthProvider>
-       <App /> 
-      </AuthProvider>
+  <Router>
+    
+    {/* Wrapping the component where our context is being used  */}
+        <AuthProvider>
+          <ToastProvider autoDismiss autoDismissTimeout={5000} placement="top-left">
+            <App /> 
+          </ToastProvider>
+        </AuthProvider>
     </Router>
-  </ToastProvider>
   // </React.StrictMode>
 );
