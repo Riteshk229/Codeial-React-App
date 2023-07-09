@@ -1,8 +1,39 @@
 export * from './constants'
 
 
-{ username: "Ritesh"; password: '123123'}
+// on login store the token
+export const setItemInLocalStorage = (key,value) => {
+    if (!key || !value) {
+        return console.error("Cannot Store in Local Storage");
+    }
     
+    const valueToStore =
+        typeof value != 'string' ? JSON.stringify(value) : value;
+    
+    localStorage.setItem(key, valueToStore);
+}
+
+
+// on refresh get the token
+export const getItemInLocalStorage = (key) => {
+    if (!key) {
+        return console.error("Cannot get the value from Local Storage");
+    }
+
+    localStorage.getItem(key);
+}
+
+// on log out remove the token
+export const removeItemFromLocalStorage = (value, key) => {
+    if (!key) {
+        return console.error("Cannot get the value from Local Storage");
+    }
+    
+    localStorage.removeItem(key);
+}
+
+
+{ username: "Ritesh"; password: '123123'}
 export const getFormBody = (params) => {
     let formBody = [];
     for (let property in params) {
