@@ -25,7 +25,7 @@ export const getItemFromLocalStorage = (key) => {
 }
 
 // on log out remove the token
-export const removeItemFromLocalStorage = (value, key) => {
+export const removeItemFromLocalStorage = (key) => {
     if (!key) {
         return console.error("Cannot get the value from Local Storage");
     }

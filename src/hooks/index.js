@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { AuthContext,PostsContext } from "../provider";
-import { login as UserLogin, getPosts } from "../api";
+import { login as UserLogin, getPosts, register} from "../api";
 import {
     setItemInLocalStorage,
     LOCALSTORAGE_TOKEN_KEY,
@@ -53,17 +53,40 @@ export const useProvideAuth = () => {
             }
         };
         
-        const logout = () => {
-            setUser(null);
-            removeItemFromLocalStorage(LOCALSTORAGE_TOKEN_KEY);
-        };
+    const logout = () => {
+        setUser(null);
+        removeItemFromLocalStorage(LOCALSTORAGE_TOKEN_KEY);
+    };
+
+    const signup = async (name,email,password,confirmPassword) => {
+        const response = await register(name, email, password, confirmPassword);
+        if (response.success) {
+            setUser(response.data.user);
+            setItemInLocalStorage(
+                LOCALSTORAGE_TOKEN_KEY,
+                response.data.token ? response.data.token : null
+                );
+                
+                return {
+                    success : true
+                }
+            } else {
+                return {
+                    success: false,
+                    message : response.message
+                }
+            }
+    }
         
-        return {
-            user,
-            loading,
-            logout,
-            login
-        }
+    return {
+        user,
+        loading,
+        logout,
+        login,
+        signup
+    }
+    
+
     }
     
     

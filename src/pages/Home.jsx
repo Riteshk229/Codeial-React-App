@@ -8,7 +8,7 @@ const Home = () => {
     // const auth = useAuth();
     const posts = usePosts();
 
-    console.log(posts);
+    // console.log(posts);
 
     if (posts.loading) {
         return <Loader />;
