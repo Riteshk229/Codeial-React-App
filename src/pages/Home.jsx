@@ -1,11 +1,22 @@
 import PropTypes from 'prop-types';
 import styles from '../assets/styles/home.module.css'
-import {Comments} from '../components'
+import { Comments } from '../components'
+import {Loader} from '../components';
+import { useAuth, usePosts } from '../hooks';
 
-const Home = ({posts}) => {
+const Home = () => {
+    // const auth = useAuth();
+    const posts = usePosts();
+
+    console.log(posts);
+
+    if (posts.loading) {
+        return <Loader />;
+    }
+    
     return (
         <div className={styles.postList}>
-            {posts.map(post => 
+            {posts.data.map(post => 
                 <div className={styles.postWrapper} key={post._id}>
                 <div className={styles.postHeader}>
                     <div className={styles.postAvatar}>
@@ -43,8 +54,8 @@ const Home = ({posts}) => {
     )
 }
 
-Home.propTypes = {
-    posts: PropTypes.array.isRequired
-}
+// Home.propTypes = {
+//     posts: PropTypes.array.isRequired
+// }
 
 export default Home;

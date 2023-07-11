@@ -1,7 +1,6 @@
 import { createContext } from "react";
 import { useProvideAuth } from "../hooks";
 
-
 // setting the initial value of our context
 const initialState = {
     user: null,

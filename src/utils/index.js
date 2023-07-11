@@ -1,6 +1,7 @@
 export * from './constants'
 
 
+
 // on login store the token
 export const setItemInLocalStorage = (key,value) => {
     if (!key || !value) {
@@ -9,18 +10,18 @@ export const setItemInLocalStorage = (key,value) => {
     
     const valueToStore =
         typeof value != 'string' ? JSON.stringify(value) : value;
-    
+        
     localStorage.setItem(key, valueToStore);
 }
 
 
 // on refresh get the token
-export const getItemInLocalStorage = (key) => {
+export const getItemFromLocalStorage = (key) => {
     if (!key) {
         return console.error("Cannot get the value from Local Storage");
     }
 
-    localStorage.getItem(key);
+    return localStorage.getItem(key);
 }
 
 // on log out remove the token
