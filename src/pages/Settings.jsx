@@ -1,18 +1,70 @@
 import { useState } from 'react';
 import styles from '../assets/styles/settings.module.css'
 import { useAuth } from '../hooks';
+import { useToasts } from 'react-toast-notifications'; 
 
 const Settings = () => {
     const auth = useAuth();
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState(auth.user?.name ?auth.user.name : '');
     const [password, setPassword] = useState('');
-    const [connfirmPassword, setConfirmPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [savingForm, setSavingForm] = useState(false);
+    const { addToast } = useToasts();
 
-    const updateProfile = () => {
-        
+    const clearForm = () => {
+        setPassword('');
+        setConfirmPassword('');
     }
+
+    const updateProfile = async () => {
+        setSavingForm(true);
+
+        let error = false;
+        if (!name || !password || !confirmPassword) {
+
+            addToast("Please fill all the  fields", {
+                appearance: 'error',
+            });
+
+            error = true
+        }
+        if (password !== confirmPassword) {
+            addToast("Password and Cofirm password doesn't match!!", {
+                appearance: 'error',
+            });
+
+            error = true
+        }
+
+        if (error) {
+            return setSavingForm(false);
+        }
+
+        const response = await auth.updateUser(
+            auth.user._id,
+            name,
+            password,
+            confirmPassword
+        );
+
+        if (response.success) {
+            setEditMode(false);
+            setSavingForm(false);
+            clearForm();
+
+            return addToast("User updated successfuly", {
+                appearance: "success",
+            });
+        } else {
+            return addToast(response.message, {
+                appearance: "success",
+            });
+        }
+
+
+        setSavingForm(false);
+    };
 
     return (
         <div className={styles.settings}>
@@ -53,7 +105,7 @@ const Settings = () => {
                     <div className={styles.fieldLabel}>Confirm Password</div>
                     <input
                         type='password'
-                        value={connfirmPassword}
+                        value={confirmPassword}
                         onChange={(e)=>setConfirmPassword(e.target.value)}
                     />
                 </div>
@@ -69,6 +121,7 @@ const Settings = () => {
                                 <button
                                     className={`button ${styles.saveBtn}`}
                                     onClick={updateProfile}
+                                    disabled={savingForm}
                                 >
 
                                     {savingForm ? "Saving.." : "Save profile"}

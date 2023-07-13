@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { AuthContext,PostsContext } from "../provider";
-import { login as UserLogin, getPosts, register} from "../api";
+import { login as UserLogin, editProfile, getPosts, register} from "../api";
 import {
     setItemInLocalStorage,
     LOCALSTORAGE_TOKEN_KEY,
@@ -16,7 +16,7 @@ export const useAuth = () => {
 }
 
 
-// custo hook to  providelogin authorization
+// custo hook to  provide login authorization
 export const useProvideAuth = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -32,9 +32,31 @@ export const useProvideAuth = () => {
         setLoading(false);
     }, []);
     
+    const updateUser = async (userId, name, password, confirmPassword) =>{
+        const response = await editProfile(userId, name, password, confirmPassword);
+
+        if (response.success) {
+            setUser(response.data.user);
+            setItemInLocalStorage(
+                LOCALSTORAGE_TOKEN_KEY,
+                response.data.token ? response.data.token : null
+            );
+
+            return {
+                success : true
+            }
+        } else {
+            return {
+                success: false,
+                message : response.message
+            }
+        }
+    }
+
     const login = async(email, password) => {
         const response = await UserLogin(email, password);
         
+        console.log("response ",response)
         if (response.success) {
             setUser(response.data.user);
             setItemInLocalStorage(
@@ -83,7 +105,8 @@ export const useProvideAuth = () => {
         loading,
         logout,
         login,
-        signup
+        signup,
+        updateUser
     }
     
 

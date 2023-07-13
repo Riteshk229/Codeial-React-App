@@ -7,7 +7,8 @@ const initialState = {
     login: () => { },
     logout: () => { },
     loading: true,
-    signup: () => { },
+  signup: () => { },
+  updateUser: () => { },
 }
 
 // creating and exporting context with initial value

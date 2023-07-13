@@ -51,6 +51,7 @@
     color: #ef7917;
     /* margin-top: 7px; */
     font-size: 13px;
+    margin-left: 10px;
   }
   .settings .goBack:hover {
     cursor: pointer;
@@ -79,6 +80,7 @@
 
   .settings .editModeActive{
     display: flex;
-    width: 65%;
-    justify-content: space-around;
+    width: auto;
+    justify-content: flex-start;
   }
+  
