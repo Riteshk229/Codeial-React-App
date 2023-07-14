@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
-import { Route,Routes } from "react-router-dom";
+import { Navigate, Route,Routes } from "react-router-dom";
 import { getPosts } from "../api";
-import { Home, Login, Signup,Settings} from "../pages";
+import { Home, Login, Signup,Settings,UserProfile} from "../pages";
 import {Loader, Navbar} from "./";
 import { useAuth, usePosts } from "../hooks";
+
+function PrivateRoute({ children, rest }) {
+  console.log(children);
+  const auth = useAuth();
+  return auth.user ? <>{children}</> : <Navigate to='/login' />;
+}
 
 function App() {
   const auth = useAuth();
@@ -34,7 +40,18 @@ function App() {
         <Route exact path="/" element={<Home />}></Route>
         <Route exact path="/login" element={<Login />}></Route>
         <Route exact path="/register" element={<Signup />}></Route>
-        <Route exact path="/settings" element={<Settings />}></Route>
+        <Route
+          exact path="/settings"
+          element={<PrivateRoute>
+                      <Settings/>
+                  </PrivateRoute>}>
+        </Route>
+        <Route
+          exact path="/user/:userId"
+          element={<PrivateRoute>
+                      <UserProfile/>
+                  </PrivateRoute>}>
+          </Route>
           {/* <Route  exact path="/about" element={About}></Route> */}
           {/* <Route exact path="/user/:user_ID" element={UserInfo}></Route> */}
         </Routes>

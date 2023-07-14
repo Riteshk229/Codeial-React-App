@@ -3,6 +3,7 @@ import styles from '../assets/styles/home.module.css'
 import { Comments } from '../components'
 import {Loader} from '../components';
 import { useAuth, usePosts } from '../hooks';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     // const auth = useAuth();
@@ -25,7 +26,12 @@ const Home = () => {
                             alt="user-pic"
                         />
                         <div>
-                                <span className={styles.postAuthor}>{post.user.name}</span>
+                                <Link
+                                    to={`/user/${post.user._id}`}
+                                    className={styles.postAuthor}
+                                >
+                                    {post.user.name}
+                                </Link >
                             <span className={styles.postTime}>a minute ago</span>
                         </div>
                     </div>
