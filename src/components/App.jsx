@@ -6,7 +6,7 @@ import {Loader, Navbar} from "./";
 import { useAuth, usePosts } from "../hooks";
 
 function PrivateRoute({ children, rest }) {
-  console.log(children);
+  // console.log(children);
   const auth = useAuth();
   return auth.user ? <>{children}</> : <Navigate to='/login' />;
 }

@@ -27,7 +27,11 @@ const Home = () => {
                         />
                         <div>
                                 <Link
-                                    to={`/user/${post.user._id}`}
+                                    // to={`/user/${post.user._id}`}
+
+                                    // method 1
+                                    to={{pathname: `/user/${post.user._id}`,}}
+                                    state={{user: post.user}}
                                     className={styles.postAuthor}
                                 >
                                     {post.user.name}
