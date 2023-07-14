@@ -43,7 +43,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
       message: error.message,
       success: false,
     };
-  }
+  };
 };
 
 export const getPosts = (page = 1, limit = 10) => {
@@ -52,24 +52,24 @@ export const getPosts = (page = 1, limit = 10) => {
   });
 };
 
-export const login = (email,password) => {
+export const login = (email, password) => {
   return customFetch(API_URLS.login(), {
     method: "POST",
-    body : { email, password }
-  })
-}
+    body: { email, password }
+  });
+};
 
-export const register = async (name,email,password,confirmPassword) => {
+export const register = async (name, email, password, confirmPassword) => {
   return customFetch(API_URLS.signup(), {
     method: "POST",
     body: {
       name,
       email,
       password,
-      confirm_password:confirmPassword
+      confirm_password: confirmPassword
     }
   });
-}
+};
 
 export const editProfile = async (userId, name, password, confirmPassword) => {
   return customFetch(API_URLS.editUser(), {
@@ -78,7 +78,13 @@ export const editProfile = async (userId, name, password, confirmPassword) => {
       id: userId,
       name,
       password,
-      confirm_password : confirmPassword
+      confirm_password: confirmPassword
     }
-  })
-} 
+  });
+};
+
+export const fetchUserProfile = async (userId) => {
+  return customFetch(API_URLS.userInfo(userId), {
+    method: "GET",
+  });
+}; 

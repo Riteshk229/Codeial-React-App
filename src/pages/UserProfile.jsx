@@ -1,16 +1,68 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../assets/styles/settings.module.css'
 import { useAuth } from '../hooks';
 import { useToasts } from 'react-toast-notifications'; 
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { fetchUserProfile } from '../api';
+import {Loader} from '../components';
 
 const UserProfile = () => {
     const auth = useAuth();
-    // const { userId } = useParams();
-    const location = useLocation();
-    console.log('location', location);
-    const {user = {}} = location.state;
+
+    // method 1
+    // const location = useLocation();
+    // console.log('location', location);
+    // const {user = {}} = location.state;
+
+
+    // method 2
+    const [user, setUser] = useState({});
+    const [loading, setLoading] = useState(true);
+    const { userId } = useParams();
+    const navigate = useNavigate();
+    
     const { addToast } = useToasts();
+    
+    
+    useEffect(() => { 
+        console.log("userId", userId);
+        const getUser = async () => {
+            const response = await fetchUserProfile(userId);
+            // console.log(response);
+            if (response.success) {
+                setUser(response.data.user);
+            } else {
+                addToast(response.message, {
+                    appearance : "error"
+                })
+                navigate('/');
+            }
+        }
+        setLoading(false);
+
+        getUser();
+    }, [userId]);
+    
+    if (loading) {
+        console.log("loading....", loading);
+        return <Loader />;
+    }
+
+    const chechIfUserIsAFriend = () => {
+        const friends = auth.user.friends;
+        console.log(friends);
+        const friendIds = friends.map((friend) => friend.to_user_id);
+
+        const index = friendIds.indexof(userId);
+
+        if (index !== -1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    const showAddFriendBtn = chechIfUserIsAFriend();
 
     return (
         <div className={styles.settings}>
@@ -23,28 +75,32 @@ const UserProfile = () => {
             
             <div className={styles.field}>
                 <div className={styles.fieldLabel}>Email</div>
-                <div className={styles.fieldValue}>{ user ?.email}</div>
+                <div className={styles.fieldValue}>{ user.email}</div>
             </div>
 
             <div className={styles.field}>
                 <div className={styles.fieldLabel}>Name</div>
-                <div className={styles.fieldValue}>{user?.name}</div>
+                <div className={styles.fieldValue}>{user.name}</div>
             </div>
 
 
             <div className={styles.btnGrp}>
-                <div className={styles.editModeActive}>
-                    <button
-                        className={`button ${styles.saveBtn}`}
-                    >
-                        Add Friend
-                    </button>
-                    <button
-                        className={`button ${styles.goBack}`}
-                    >
-                        Remove Friend
-                    </button>
-                </div>
+                    {chechIfUserIsAFriend()
+                        ? (
+                            <button
+                                className={`button ${styles.goBack}`}
+                            >
+                                Remove Friend
+                            </button>
+                    
+                    ): (
+                            <button
+                                className={`button ${styles.saveBtn}`}
+                            >
+                                Add Friend
+                            </button>
+                            
+                    )}
             </div>
         </div>
     );
