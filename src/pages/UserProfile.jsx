@@ -3,7 +3,7 @@ import styles from '../assets/styles/settings.module.css'
 import { useAuth } from '../hooks';
 import { useToasts } from 'react-toast-notifications'; 
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { addFriends, fetchUserProfile } from '../api';
+import { addFriends, fetchUserProfile, removeFriends } from '../api';
 import {Loader} from '../components';
 
 const UserProfile = () => {
@@ -82,8 +82,28 @@ const UserProfile = () => {
         setRequestInProgress(false);
     }
 
-    const handleRemoveFriendsClick = () => {
+    const handleRemoveFriendsClick = async() => {
         setRequestInProgress(true);
+
+        const friends = auth.user.friends;
+        const friendship = friends.filter(
+            (friend) => friend.to_user._id === userId
+        );
+        console.log("removing ", friendship);
+
+        const response = await removeFriends(userId);
+        if (response.success) {
+
+            auth.updateUserFriends(false,friendship[0]);
+            addToast(`${user.name} removed as friends !!`,{
+                appearance : "success"
+            })
+        } else {
+            addToast(response.message,{
+                appearance : "error"
+            })
+        }
+
         setRequestInProgress(false);
     }
 
@@ -111,7 +131,7 @@ const UserProfile = () => {
                     {checkIfUserIsAFriend() ? (
                         <button
                         className={`button ${styles.saveBtn}`}
-                        onClick={handleAddFriendsClick}
+                        onClick={handleRemoveFriendsClick}
                         >
                             {requestInProgress ? 'Removing friend ...' : 'Remove Friend'}
                         </button>
