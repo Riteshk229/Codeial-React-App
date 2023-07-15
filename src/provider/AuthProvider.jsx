@@ -9,6 +9,7 @@ const initialState = {
     loading: true,
   signup: () => { },
   updateUser: () => { },
+  updateUserFriends: () => { },
 }
 
 // creating and exporting context with initial value

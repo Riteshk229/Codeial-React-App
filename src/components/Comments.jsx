@@ -9,7 +9,9 @@ const Comments = ({ comments }) => {
                     <div className={styles.postCommentHeader}>
                         <span className={styles.postCommentAuthor}> { comment.user.name }</span>
                         <span className={styles.postCommentTime}>a minute ago</span>
-                        <span className={styles.postCommentLikes}>22</span>
+                        <span className={styles.postCommentLikes}>
+                            <i className="fa-regular fa-heart"></i> &nbsp;22
+                        </span>
                     </div>
 
                     <div className={styles.postCommentContent}>{ comment.content }</div>

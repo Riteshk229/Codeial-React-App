@@ -13,6 +13,7 @@ function PrivateRoute({ children, rest }) {
 
 function App() {
   const auth = useAuth();
+  console.log("auth ",auth);
 
   // useEffect(() => {
   //   const fetchPosts = async () => {
