@@ -3,7 +3,7 @@ import { useProvidePosts } from "../hooks";
 
 // setting the initial value of our context
 const initialState = {
-    post: [],
+    posts: [],
     loading: true,
 }
 

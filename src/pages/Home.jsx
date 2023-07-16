@@ -47,11 +47,11 @@ const Home = () => {
                     <div className={styles.postActions}>
                         <div className={ styles.postLike}>
                             <i className="fa-regular fa-heart"></i>
-                            <span>5</span>
+                                <span>{ post.likes.length }</span>
                         </div>
                         <div className={ styles.postCommentsIcon}>
                             <i className="fa-regular fa-comments"></i>
-                            <span>2</span>
+                                <span>{ post.comments.length}</span>
                         </div>
                     </div>
                     <div className={styles.postCommentBox}>

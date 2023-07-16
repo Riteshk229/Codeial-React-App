@@ -21,14 +21,14 @@ const Settings = () => {
         setSavingForm(true);
 
         let error = false;
-        if (!name || !password || !confirmPassword) {
+        // if (!name || !password || !confirmPassword) {
 
-            addToast("Please fill all the  fields", {
-                appearance: 'error',
-            });
+        //     addToast("Please fill all the  fields", {
+        //         appearance: 'error',
+        //     });
 
-            error = true
-        }
+        //     error = true
+        // }
         if (password !== confirmPassword) {
             addToast("Password and Cofirm password doesn't match!!", {
                 appearance: 'error',
