@@ -96,9 +96,12 @@
 .postCommentBox input:focus {
   outline: none;
 }
-.postCommentsList {
+.postCommentsList  > div{
   padding: 5px 10px;
   position: relative;
+  background-color: #e4c4c4;
+  border-bottom: 0.5px solid #616161;
+  box-shadow: 0px 0px 0px 0.5px rgba(0,0,0,0.3);
 }
 .postCommentItem {
   background: #eceffa;
@@ -109,7 +112,7 @@
 .postCommentHeader {
   display: flex;
 }
-.postCommentHeader .postCommentAuthor {
+.postCommentHeader  .postCommentAuthor {
   font-weight: 600;
   font-size: 12px;
   line-height: 16px;
@@ -129,6 +132,7 @@
 }
 .postCommentContent {
   margin-top: 7px;
+  padding-left: 5px;
 }
 .postCommentsList .commentLike {
   position: absolute;

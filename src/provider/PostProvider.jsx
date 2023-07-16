@@ -5,6 +5,8 @@ import { useProvidePosts } from "../hooks";
 const initialState = {
     posts: [],
     loading: true,
+    addPostToState: () => { },
+    addComment: ()=> {}
 }
 
 // creating and exporting context with initial value

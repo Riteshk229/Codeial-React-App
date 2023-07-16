@@ -30,7 +30,7 @@ const FriendsList = () => {
                                     alt="friend-pic"
                                 />
                             </div>
-                            <div className='{styles.friendsName'>{ friend.to_user.email}</div>
+                            <div className={styles.friendsName}>{ friend.to_user.email}</div>
                         </Link>
                     </div>)}
         </div>

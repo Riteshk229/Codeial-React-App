@@ -1,15 +1,17 @@
 import App from "./App";
 import Loader from "./Loader";
 import Navbar from "./Navbar";
-import Comments from "./Comments";
+import Comment from "./Comment";
 import FriendsList from "./FriendsList";
 import CreatePost from "./CreatePost";
+import Posts from "./Posts";
 
 export {
     App,
     Loader,
     Navbar,
-    Comments,
+    Posts,
+    Comment,
     FriendsList,
     CreatePost
 }
