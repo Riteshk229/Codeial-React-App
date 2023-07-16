@@ -5,7 +5,7 @@ import { Home, Login, Signup,Settings,UserProfile} from "../pages";
 import {Loader, Navbar} from "./";
 import { useAuth, usePosts } from "../hooks";
 
-function PrivateRoute({ children, rest }) {
+function PrivateRoute({ children}) {
   // console.log(children);
   const auth = useAuth();
   return auth.user ? <>{children}</> : <Navigate to='/login' />;
@@ -13,7 +13,7 @@ function PrivateRoute({ children, rest }) {
 
 function App() {
   const auth = useAuth();
-  console.log("auth ",auth);
+  console.log("auth",auth);
 
   // useEffect(() => {
   //   const fetchPosts = async () => {

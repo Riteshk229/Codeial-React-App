@@ -29,7 +29,7 @@ const UserProfile = () => {
         console.log("userId", userId);
         const getUser = async () => {
             const response = await fetchUserProfile(userId);
-            // console.log(response);
+            console.log(response);
             if (response.success) {
                 setUser(response.data.user);
             } else {
