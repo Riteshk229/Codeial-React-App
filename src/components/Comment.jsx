@@ -1,7 +1,35 @@
 import PropTypes from 'prop-types';
-import styles from '../assets/styles/home.module.css'
+import { useState } from 'react';
+import styles from '../assets/styles/home.module.css';
+import { toggleLike } from '../api';
+import { useToasts } from 'react-toast-notifications';
 
 const Comment = ({ comment }) => {
+    const [liking, setLiking] = useState(false);
+    const { addToast } = useToasts();
+
+    const handlePostLikeClick = async () => {
+        setLiking(true);
+        const response = await toggleLike(comment._id, "Comment");
+        
+        if (response.success) {
+
+            if (response.data.deleted) {
+                addToast('Like removed successfully!!', {
+                    appearance: "success"
+                })
+            } else {
+                addToast('Like removed successfully!!', {
+                    appearance: "success"
+                })
+            }
+        } else {
+            addToast(response.message, {
+                appearance: "error"
+            })
+        }
+        setLiking(false);
+    }
     return (<>
                 <div className={styles.postCommentsItem}>
                     <div className={styles.postCommentHeader}>
@@ -13,8 +41,18 @@ const Comment = ({ comment }) => {
                     <div className={styles.postCommentContent}>
                         {comment.content}
                     </div>
-            </div>
-        </>
+            
+                    <div className={styles.postLike}>
+                    <button
+                        onClick={handlePostLikeClick}
+                        disabled ={liking}
+                    >
+                        <i className="fa-regular fa-heart"></i>
+                    </button>
+                    <span>{ comment.likes.length }</span>
+                </div>
+                </div>
+            </>
   );
 } 
 

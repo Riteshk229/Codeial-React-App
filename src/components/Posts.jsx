@@ -6,13 +6,14 @@ import { Comment } from '../components'
 import { useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
 import { usePosts } from '../hooks';
-import { createComment } from '../api';
+import { createComment, toggleLike } from '../api';
 
 const Posts = ({ post }) => {
     
     const posts = usePosts();
     const [comment, setComment] = useState('');
     const [addingComment, setAddingComment] = useState(false);
+    const [liking, setLiking] = useState(false);
     const { addToast } = useToasts();
 
     const handleAddComment = async (e) => {
@@ -25,7 +26,7 @@ const Posts = ({ post }) => {
             if (response.success) {
                 setComment('');
                 console.log(1);
-                posts.addComment(response.data.Comment, post._id)
+                // posts.addComment(response.data.Comment, post._id);
                 console.log(2);
                 addToast('Comment created successfully!!', {
                     appearance: "success"
@@ -39,6 +40,29 @@ const Posts = ({ post }) => {
             setAddingComment(false);
         }
     };
+
+    const handlePostLikeClick = async () => {
+        setLiking(true);
+        const response = await toggleLike(post._id, "Post");
+        
+        if (response.success) {
+
+            if (response.data.deleted) {
+                addToast('Like removed successfully!!', {
+                    appearance: "success"
+                })
+            } else {
+                addToast('Like removed successfully!!', {
+                    appearance: "success"
+                })
+            }
+        } else {
+            addToast(response.message, {
+                appearance: "error"
+            })
+        }
+        setLiking(false);
+    }
 
     return (
         <div className={styles.postWrapper} key={post._id}>
@@ -67,9 +91,14 @@ const Posts = ({ post }) => {
             <div className={styles.postContent}>{post.content}</div>
 
             <div className={styles.postActions}>
-                <div className={ styles.postLike}>
-                    <i className="fa-regular fa-heart"></i>
-                        <span>{ post.likes.length }</span>
+                <div className={styles.postLike}>
+                    <button
+                        onClick={handlePostLikeClick}
+                        disabled ={liking}
+                    >
+                        <i className="fa-regular fa-heart"></i>
+                    </button>
+                    <span>{ post.likes.length }</span>
                 </div>
                 <div className={ styles.postCommentsIcon}>
                     <i className="fa-regular fa-comments"></i>
