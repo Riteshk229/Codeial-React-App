@@ -6,7 +6,8 @@ const initialState = {
     posts: [],
     loading: true,
     addPostToState: () => { },
-    addComment: ()=> {}
+    addComment: () => { },
+    removeComment: () => { }
 }
 
 // creating and exporting context with initial value

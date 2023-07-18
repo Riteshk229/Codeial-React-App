@@ -38,14 +38,29 @@ export const useProvidePosts = () => {
             }
             return post;
         });
+        console.log("bew",newPosts);
         setPosts(newPosts);
     };
+
+    const removeComment = (postId, commentId) => {
+        const newPosts = posts.map((post) => {
+
+            if (post._id === postId) {
+                const newComments = post.comments.filter((comment) => comment._id !== commentId);
+
+                return {...post,comments : newComments}
+            }
+            return post;
+        });
+        setPosts(newPosts);
+    }
 
     return {
         data: posts,
         loading,
         addPostToState,
-        addComment
+        addComment,
+        removeComment
 
     };
 };

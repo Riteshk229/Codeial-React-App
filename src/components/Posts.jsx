@@ -11,6 +11,7 @@ import { createComment, toggleLike } from '../api';
 const Posts = ({ post }) => {
     
     const posts = usePosts();
+    // console.log(posts);
     const [comment, setComment] = useState('');
     const [addingComment, setAddingComment] = useState(false);
     const [liking, setLiking] = useState(false);
@@ -26,7 +27,7 @@ const Posts = ({ post }) => {
             if (response.success) {
                 setComment('');
                 console.log(1);
-                // posts.addComment(response.data.Comment, post._id);
+                // posts.addComment(response.data.comment, post._id);
                 console.log(2);
                 addToast('Comment created successfully!!', {
                     appearance: "success"
@@ -62,7 +63,7 @@ const Posts = ({ post }) => {
             })
         }
         setLiking(false);
-    }
+    };
 
     return (
         <div className={styles.postWrapper} key={post._id}>
@@ -93,6 +94,7 @@ const Posts = ({ post }) => {
             <div className={styles.postActions}>
                 <div className={styles.postLike}>
                     <button
+                        className={styles.actionBtn}
                         onClick={handlePostLikeClick}
                         disabled ={liking}
                     >
@@ -118,7 +120,11 @@ const Posts = ({ post }) => {
                 
            <div className={styles.postCommentsList}>
                 {post.comments.map(comment => 
-                    <Comment comment={comment} key={`post-comment-${comment._id}`} />
+                    
+                    <Comment
+                        comment={comment}
+                        key={`post-comment-${comment._id}`}
+                    />
                 )}
             </div>
                 
