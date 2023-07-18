@@ -23,7 +23,7 @@ const Home = () => {
                     <Posts post={post} key={`post-${post._id}`}/>
                 )}
             </div>
-            {auth.user && <FriendsList/>}
+            {auth.user && <FriendsList />}
         </div>
     )
 }

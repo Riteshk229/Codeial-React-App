@@ -20,6 +20,7 @@ export const useAuth = () => {
 export const useProvideAuth = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    let friends = [];
     
     useEffect(() => {
         const getUser = async() =>{
@@ -28,9 +29,8 @@ export const useProvideAuth = () => {
             
             if (userToken) {
                 const user = jwt(userToken);
-                const response = await fetchUserFriends();
-                
-                let friends = [];
+
+                const response = await fetchUserFriends();        
                 if (response.success) {
                     friends = response.data.friends
                 } else {
@@ -44,9 +44,8 @@ export const useProvideAuth = () => {
             }
             setLoading(false);
         }
-
         getUser();
-    }, []);
+    },[]);
     
     const updateUser = async (userId, name, password, confirmPassword) => {
         const response = await editProfile(userId, name, password, confirmPassword);
@@ -83,8 +82,6 @@ export const useProvideAuth = () => {
 
     const login = async(email, password) => {
         const response = await UserLogin(email, password);
-        
-        console.log("response ",response)
         if (response.success) {
             setUser(response.data.user);
             setItemInLocalStorage(

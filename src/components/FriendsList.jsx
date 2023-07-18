@@ -2,6 +2,8 @@
 import { Link } from 'react-router-dom';
 import styles from '../assets/styles/home.module.css'
 import { useAuth } from '../hooks'
+import { useEffect } from 'react';
+import { fetchUserFriends } from '../api';
 
 const FriendsList = () => {
     const auth = useAuth();
